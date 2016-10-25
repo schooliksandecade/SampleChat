@@ -2,8 +2,8 @@
 SampleChat like WhatsApp using firebase :D
 
 # Reference
-    https://github.com/sarathnk/Audio
-    https://firebase.google.com/docs/android/setup
+ https://github.com/sarathnk/Audio
+ https://firebase.google.com/docs/android/setup
 
 # License
 
