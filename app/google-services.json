@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "48934037064",
+    "firebase_url": "https://newchat-c6c70.firebaseio.com",
+    "project_id": "newchat-c6c70",
+    "storage_bucket": "newchat-c6c70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48934037064:android:24e9bceab94871a1",
+        "android_client_info": {
+          "package_name": "com.example.ihksan.newchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48934037064-7h94ivier6truo7e5pov2i8rpk7t9sqt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ihksan.newchat",
+            "certificate_hash": "DCC0DA4BAD703B3E34FB2206B918CE2AE962C01D"
+          }
+        },
+        {
+          "client_id": "48934037064-p9ismofta7aqjpaksqsmdugrthmtajvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZp-TJF3eMV3Xhcqy9ejGJXKohmoDnLcw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48934037064-p9ismofta7aqjpaksqsmdugrthmtajvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
