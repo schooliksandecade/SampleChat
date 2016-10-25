@@ -1,2 +1,2 @@
 # SampleChat
-sample chat like whatapps
+SampleChat like WhatsApp using firebase :D
