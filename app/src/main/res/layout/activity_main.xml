@@ -8,10 +8,10 @@
     tools:context="com.example.ihksan.newchat.MainActivity">
 
     <ProgressBar
+        android:id="@+id/pBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/pBar" />
+        android:layout_centerInParent="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPush"
@@ -20,94 +20,122 @@
         android:layout_above="@+id/footer"
         app:stackFromEnd="false" />
 
+
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="3">
 
-            <com.example.ihksan.newchat.FrameLayoutFixed
-                android:id="@+id/record_panel"
-                android:layout_width="fill_parent"
-                android:layout_centerVertical="true"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="2dp"
-                android:background="#ffffff"
-                android:visibility="visible">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff">
+
+                <com.example.ihksan.newchat.FrameLayoutFixed
+                    android:id="@+id/record_panel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="2dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/slideText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/slidearrow" />
+
+                        <TextView
+                            android:id="@+id/slideToCancelTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="6dp"
+                            android:text="slideToCancel"
+                            android:textColor="#999999"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="2dp"
+                        android:background="#ffffffff"
+                        android:orientation="horizontal"
+                        android:paddingLeft="13dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="1dp"
+                            android:src="@drawable/rec" />
+
+                        <TextView
+                            android:id="@+id/recording_time_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="6dp"
+                            android:text="00:00"
+                            android:textColor="#4d4c4b"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </com.example.ihksan.newchat.FrameLayoutFixed>
 
                 <LinearLayout
-                    android:id="@+id/slideText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="50dp"
+                    android:id="@+id/linChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="1dp"
-                        android:src="@drawable/slidearrow" />
-
-                    <TextView
-                        android:id="@+id/slideToCancelTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="6dp"
-                        android:text="slideToCancel"
-                        android:textColor="#999999"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="#ffffffff"
-                    android:orientation="horizontal"
-                    android:paddingLeft="13dp">
+                    <EditText
+                        android:id="@+id/etPush"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:hint="Ketik Pesan"
+                        android:paddingLeft="13dp"
+                        android:textSize="14sp" />
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="1dp"
-                        android:src="@drawable/rec" />
-
-                    <TextView
-                        android:id="@+id/recording_time_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="6dp"
-                        android:text="00:00"
-                        android:textColor="#4d4c4b"
-                        android:textSize="16dp" />
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginRight="13dp"
+                        android:src="@mipmap/ic_photo_camera_white_48dp"
+                        android:tint="#757575" />
                 </LinearLayout>
-            </com.example.ihksan.newchat.FrameLayoutFixed>
-
-            <EditText
-                android:id="@+id/etPush"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnPush"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btnPush"
-            android:src="@mipmap/ic_mic_white_24dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/ic_mic_white_24dp" />
     </LinearLayout>
 </RelativeLayout>

@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayoutFixed frameLayoutFixed;
     RecyclerView rvList;
     ProgressBar pbar;
+    LinearLayout linChat;
     List<Model> modelList = new ArrayList<Model>();
     Adapteres adapteres;
     boolean status = false;
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         recordTimeText = (TextView) findViewById(R.id.recording_time_text);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         pbar = (ProgressBar) findViewById(R.id.pBar);
+        linChat = (LinearLayout) findViewById(R.id.linChat);
 
 
         setAdapteres();
@@ -121,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     etPush.clearFocus();
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                        etPush.animate().alpha(0.0f).setDuration(500);
+                        linChat.animate().alpha(0.0f).setDuration(500);
                         frameLayoutFixed.animate().alpha(1.0f).setDuration(500);
                         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) slideText
                                 .getLayoutParams();
@@ -135,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                 .requestDisallowInterceptTouchEvent(true);
                     } else if (event.getAction() == MotionEvent.ACTION_UP
                             || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                        etPush.animate().alpha(1.0f).setDuration(500);
+                        linChat.animate().alpha(1.0f).setDuration(500);
                         frameLayoutFixed.animate().alpha(0.0f).setDuration(500);
                         startedDraggingX = -1;
                         stoprecord();
