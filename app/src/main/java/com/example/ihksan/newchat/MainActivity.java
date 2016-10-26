@@ -15,6 +15,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -40,6 +42,7 @@ import static com.example.ihksan.newchat.Main2Activity.dp;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton btnPush;
+    FloatingActionButton btnRecord;
     EditText etPush;
     FrameLayoutFixed frameLayoutFixed;
     RecyclerView rvList;
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnPush = (FloatingActionButton) findViewById(R.id.btnPush);
+        btnRecord = (FloatingActionButton) findViewById(R.id.btnRecord);
         etPush = (EditText) findViewById(R.id.etPush);
         rvList = (RecyclerView) findViewById(R.id.rvPush);
         frameLayoutFixed = (FrameLayoutFixed) findViewById(R.id.record_panel);
@@ -203,11 +207,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count == 0) {
-                    btnPush.setImageResource(R.mipmap.ic_mic_white_24dp);
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.send);
+                    Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.record);
+                    btnPush.startAnimation(animation);
+                    btnRecord.startAnimation(animation1);
                     status = false;
-                } else {
-                    btnPush.setImageResource(R.mipmap.ic_send_white_24dp);
-                    status = true;
+                } else if (count == 1) {
+                    if (!status) {
+                        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.send);
+                        Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.record);
+                        btnPush.startAnimation(animation1);
+                        btnRecord.startAnimation(animation);
+                        status = true;
+                    }
                 }
 
             }
