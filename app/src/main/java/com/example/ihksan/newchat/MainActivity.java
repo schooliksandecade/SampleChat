@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        btnPush.setOnTouchListener(new View.OnTouchListener() {
+        btnRecord.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (!status) {
@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.record);
                     btnPush.startAnimation(animation);
                     btnRecord.startAnimation(animation1);
+                    btnRecord.bringToFront();
                     status = false;
                 } else if (count == 1) {
                     if (!status) {
@@ -218,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
                         Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.record);
                         btnPush.startAnimation(animation1);
                         btnRecord.startAnimation(animation);
+                        btnPush.bringToFront();
                         status = true;
                     }
                 }
@@ -226,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
