@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (status) {
                     String data = etPush.getText().toString();
-                    writeNewUser(data);
+                    writeNewUser(data, false, false);
                     etPush.setText("");
                 } else {
                     etPush.clearFocus();
@@ -266,15 +266,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void writeNewUser(String message) {
+    private void writeNewUser(String message, Boolean image, Boolean audio) {
         Model model = new Model();
         model.setUserId("001");
         model.setName("iksan");
         model.setMessage(message);
         model.setLocation("null");
         model.setTimeStamp(System.currentTimeMillis());
-        model.setImage(false);
-        model.setAudio(false);
+        model.setImage(image);
+        model.setAudio(audio);
         String uId = mDatabase.push().getKey();
         mDatabase.child("police212").child(uId).setValue(model);
     }
@@ -335,6 +335,8 @@ public class MainActivity extends AppCompatActivity {
         myAudioRecorder.stop();
         myAudioRecorder.release();
         myAudioRecorder = null;
+
+        writeNewUser("//photo", false, true);
     }
 
     private void vibrate() {

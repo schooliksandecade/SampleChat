@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.curioustechizen.ago.RelativeTimeTextView;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,9 +34,15 @@ public class Adapteres extends RecyclerView.Adapter<Adapteres.Holder> {
         this.context = context;
     }
 
+    public static String getClock(Long timestamp) {
+        Date date = new Date(timestamp);
+        SimpleDateFormat df2 = new SimpleDateFormat("hh:mm");
+        String dateText = df2.format(date);
+        return dateText;
+    }
+
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         return new Holder(view);
     }
@@ -48,14 +52,24 @@ public class Adapteres extends RecyclerView.Adapter<Adapteres.Holder> {
         String name = modelList.get(position).getName();
         String id = modelList.get(position).getUserId();
         String message = modelList.get(position).getMessage();
+        Boolean image = modelList.get(position).getImage();
+        Boolean audio = modelList.get(position).getAudio();
         long timestamp = modelList.get(position).getTimeStamp();
-        holder.tvMessage.setText(message);
-        holder.tvTimeStamp.setText(getClock(timestamp));
+        if (audio) {
+            holder.audio.setVisibility(View.VISIBLE);
+            holder.message.setVisibility(View.GONE);
+        } else if (image) {
+
+        } else {
+            holder.tvMessage.setText(message);
+            holder.tvTimeStamp.setText(getClock(timestamp));
+        }
+
         if (checkSender(id)) {
             holder.right.setVisibility(View.VISIBLE);
             holder.left.setVisibility(View.GONE);
             holder.container.setGravity(Gravity.RIGHT);
-        } else{
+        } else {
             holder.right.setVisibility(View.GONE);
             holder.left.setVisibility(View.VISIBLE);
             holder.container.setGravity(Gravity.LEFT);
@@ -81,22 +95,18 @@ public class Adapteres extends RecyclerView.Adapter<Adapteres.Holder> {
         FrameLayout left;
         FrameLayout right;
         RelativeLayout container;
+        LinearLayout message;
+        LinearLayout audio;
 
         public Holder(View itemView) {
             super(itemView);
             tvMessage = (TextView) itemView.findViewById(R.id.tvMessage);
-            tvTimeStamp= (TextView) itemView.findViewById(R.id.tvTimeStamp);
+            tvTimeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
             left = (FrameLayout) itemView.findViewById(R.id.left_arrow);
             right = (FrameLayout) itemView.findViewById(R.id.right_arrow);
             container = (RelativeLayout) itemView.findViewById(R.id.message_container);
-
+            message = (LinearLayout) itemView.findViewById(R.id.message);
+            audio = (LinearLayout) itemView.findViewById(R.id.audio);
         }
-    }
-
-    public static String getClock(Long timestamp) {
-        Date date = new Date(timestamp);
-        SimpleDateFormat df2 = new SimpleDateFormat("hh:mm");
-        String dateText = df2.format(date);
-        return dateText;
     }
 }
