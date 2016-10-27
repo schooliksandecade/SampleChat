@@ -206,14 +206,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (count == 0) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int data = etPush.getText().toString().length();
+                if (data == 0) {
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.send);
                     Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.record);
                     btnPush.startAnimation(animation);
                     btnRecord.startAnimation(animation1);
                     btnRecord.bringToFront();
                     status = false;
-                } else if (count == 1) {
+                } else if (data > 0) {
                     if (!status) {
                         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.send);
                         Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.record);
@@ -223,11 +229,6 @@ public class MainActivity extends AppCompatActivity {
                         status = true;
                     }
                 }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
