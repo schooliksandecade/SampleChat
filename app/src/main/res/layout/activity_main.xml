@@ -122,6 +122,7 @@
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/ivPhoto"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_marginRight="13dp"

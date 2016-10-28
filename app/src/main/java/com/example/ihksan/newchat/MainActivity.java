@@ -1,13 +1,21 @@
 package com.example.ihksan.newchat;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +27,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ihksan.newchat.animation.ViewProxy;
 import com.google.firebase.database.DataSnapshot;
@@ -41,12 +51,14 @@ import java.util.concurrent.TimeUnit;
 import static com.example.ihksan.newchat.Main2Activity.dp;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int PERMISSION_REQUEST_CODE = 1;
     FloatingActionButton btnPush;
     FloatingActionButton btnRecord;
     EditText etPush;
     FrameLayoutFixed frameLayoutFixed;
     RecyclerView rvList;
     ProgressBar pbar;
+    ImageView ivPhoto;
     LinearLayout linChat;
     List<Model> modelList = new ArrayList<Model>();
     Adapteres adapteres;
@@ -64,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
     private MediaRecorder myAudioRecorder;
     private String outputFile = null;
+    private Uri imgUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         pbar = (ProgressBar) findViewById(R.id.pBar);
         linChat = (LinearLayout) findViewById(R.id.linChat);
+        ivPhoto = (ImageView) findViewById(R.id.ivPhoto);
 
 
         setAdapteres();
@@ -265,12 +279,85 @@ public class MainActivity extends AppCompatActivity {
                 // Failed to read value
             }
         });
+
+        ivPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isDeviceSupportCamera()) {
+                    if (checkPermission()) {
+                        captureImage();
+
+                    } else {
+                        requestPermission();
+                    }
+                }
+            }
+        });
+    }
+
+    private void requestPermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            Toast.makeText(this, "Perimission kamera tidak di verifikasi, mohon di ijinkan di setting permission apps", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void captureImage() {
+        String fileName = System.currentTimeMillis() + ".jpg";
+        ContentValues values = new ContentValues();
+
+        values.put(MediaStore.Images.Media.TITLE, fileName);
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
+
+        imgUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+        startActivityForResult(intent, 1);
+    }
+
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                writeNewUser("/path/image", true, false);
+            }
+        }
+    }
+
+    private boolean isDeviceSupportCamera() {
+        if (getApplicationContext().getPackageManager().hasSystemFeature(
+                PackageManager.FEATURE_CAMERA)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void writeNewUser(String message, Boolean image, Boolean audio) {
         Model model = new Model();
         model.setUserId("001");
-        model.setName("iksan");
+        model.setName("udin");
         model.setMessage(message);
         model.setLocation("null");
         model.setTimeStamp(System.currentTimeMillis());

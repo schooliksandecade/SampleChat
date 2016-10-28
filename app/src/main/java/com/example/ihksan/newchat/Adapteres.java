@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,8 +59,11 @@ public class Adapteres extends RecyclerView.Adapter<Adapteres.Holder> {
         if (audio) {
             holder.audio.setVisibility(View.VISIBLE);
             holder.message.setVisibility(View.GONE);
+            holder.image.setVisibility(View.GONE);
         } else if (image) {
-
+            holder.audio.setVisibility(View.GONE);
+            holder.message.setVisibility(View.GONE);
+            holder.image.setVisibility(View.VISIBLE);
         } else {
             holder.tvMessage.setText(message);
             holder.tvTimeStamp.setText(getClock(timestamp));
@@ -97,6 +101,7 @@ public class Adapteres extends RecyclerView.Adapter<Adapteres.Holder> {
         RelativeLayout container;
         LinearLayout message;
         LinearLayout audio;
+        LinearLayout image;
 
         public Holder(View itemView) {
             super(itemView);
@@ -107,6 +112,7 @@ public class Adapteres extends RecyclerView.Adapter<Adapteres.Holder> {
             container = (RelativeLayout) itemView.findViewById(R.id.message_container);
             message = (LinearLayout) itemView.findViewById(R.id.message);
             audio = (LinearLayout) itemView.findViewById(R.id.audio);
+            image = (LinearLayout) itemView.findViewById(R.id.image);
         }
     }
 }
